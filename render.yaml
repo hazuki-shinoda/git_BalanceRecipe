@@ -1,6 +1,4 @@
 services:
   - type: web
     name: balance-recipe
-    env: java
-    buildCommand: "mvn clean package"
-    startCommand: "java -jar target/dependency/webapp-runner.jar target/*.war"
+    env: docker
