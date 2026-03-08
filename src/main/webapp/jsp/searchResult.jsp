@@ -1,8 +1,7 @@
 <%--
-	SaveMealSurveyサーブレットから呼び出される
+	■ SaveMealSurveyサーブレットから呼び出される
 	入力された食事名がDBにヒットしなければ警告を出す
-	ヒットすれば、各パラメーターを
-	
+	ヒットすれば、各パラメーターをSaveMealSurveyにかえす　"action" ="apply"
  --%>
  
  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

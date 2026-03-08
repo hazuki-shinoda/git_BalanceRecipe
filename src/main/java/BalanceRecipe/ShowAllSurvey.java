@@ -1,3 +1,8 @@
+/*
+ * 食事履歴一覧を表示するためのサーブレット
+ * 過去入力された食事記録のリストを持ってshowall.jspへ移動
+ * */
+
 package BalanceRecipe;
 
 import java.io.IOException;
