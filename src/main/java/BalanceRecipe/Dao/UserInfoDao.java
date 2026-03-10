@@ -31,7 +31,6 @@ public class UserInfoDao {
 	        }
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("DEBUG: SQL Exception at Login: " + e.getMessage());
 			} 
 		return dto;
 	}
@@ -39,7 +38,7 @@ public class UserInfoDao {
 	public boolean doRegist(String id,String pw, String name, String birthday,String  gender,double height,double weight,double targetWeight, double bmi) throws Exception {
 		boolean regist =false;  
 		String sql = "INSERT INTO \"USERS\" ( id, password, name, birthday, gender, height, weight, target_weight , bmi) "
-				   + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+				   + "VALUES ( ?, ?, ?, CAST(? AS DATE), ?, ?, ?, ?, ? )";
 			
 		try (Connection con = getConnection();
 			 PreparedStatement ps = con.prepareStatement(sql);){
@@ -60,20 +59,16 @@ public class UserInfoDao {
 	            }
 			} catch (Exception e) { 
 				e.printStackTrace(); 
-				System.out.println("DEBUG: SQL Exception at Login: " + e.getMessage());
 				} 
 			return regist;
 		}
 		
 	private Connection getConnection() throws Exception {
-	    String url = System.getenv("DB_URL");
-	    String user = System.getenv("DB_USER");
-	    String pass = System.getenv("DB_PASS");
-
-	    System.out.println("DEBUG: Loaded URL: " + url);
-	    System.out.println("DEBUG: Loaded USER: " + user);
+		final String URL    = System.getenv("JDBC_DATABASE_URL");
+		final String USER     = System.getenv("JDBC_DATABASE_USERNAME");
+		final String PASS   = System.getenv("JDBC_DATABASE_PASSWORD");
 
 	    Class.forName(DRIVER_NAME);
-	    return DriverManager.getConnection(url, user, pass);
+	    return DriverManager.getConnection(URL, USER, PASS);
 	}
 	}

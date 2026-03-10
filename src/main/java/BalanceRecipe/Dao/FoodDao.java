@@ -20,10 +20,9 @@ import java.util.List;
 import BalanceRecipe.Dto.FoodDto;
 
 public class FoodDao {
-	private final String URL    = System.getenv("DB_URL");
-	private final String USER     = System.getenv("DB_USER");
-	private final String PASS   = System.getenv("DB_PASS");
-
+	final String URL    = System.getenv("JDBC_DATABASE_URL");
+	final String USER     = System.getenv("JDBC_DATABASE_USERNAME");
+	final String PASS   = System.getenv("JDBC_DATABASE_PASSWORD");
     public List<FoodDto> searchByName(String keyword) {
         List<FoodDto> list = new ArrayList<>();
         String sql = "SELECT * FROM food_dictionary WHERE name LIKE ?";

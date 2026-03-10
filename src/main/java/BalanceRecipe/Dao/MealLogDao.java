@@ -21,10 +21,10 @@ import BalanceRecipe.Dto.FoodDto;
 import BalanceRecipe.Dto.MealLogDto;
 
 public class MealLogDao {
-	private final String URL    = System.getenv("DB_URL");
-	private final String USER     = System.getenv("DB_USER");
-	private final String PASS   = System.getenv("DB_PASS");
-    
+	final String URL    = System.getenv("JDBC_DATABASE_URL");
+	final String USER     = System.getenv("JDBC_DATABASE_USERNAME");
+	final String PASS   = System.getenv("JDBC_DATABASE_PASSWORD");
+
     public FoodDto getTodaysTotal(String userId) throws Exception {
         String today = java.time.LocalDate.now().toString();
         FoodDto total = new FoodDto();
