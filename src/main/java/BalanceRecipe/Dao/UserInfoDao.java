@@ -12,15 +12,12 @@ import java.sql.ResultSet;
 import BalanceRecipe.Dto.UserInfoDto;
 
 public class UserInfoDao {
-	private final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
-	private final String JDBC_URL    = System.getenv("DB_URL");
-	private final String USER_ID     = System.getenv("DB_USER");
-	private final String USER_PASS   = System.getenv("DB_PASS");
+	private final String DRIVER_NAME = "org.postgresql.Driver";
+
 	
 	public UserInfoDto doSelect(String inputUserId, String inputPassWord) throws Exception {
 		UserInfoDto dto = new UserInfoDto();
-		String sql = "SELECT id, name FROM USERS WHERE id = ? AND password = ?";
-
+		String sql = "SELECT id, name FROM \"USERS\" WHERE id = ? AND password = ?";
 		try (Connection con = getConnection();
 			 PreparedStatement ps = con.prepareStatement(sql);){
 			ps.setString(1, inputUserId);
@@ -32,13 +29,16 @@ public class UserInfoDao {
 	        		dto.setName( rs.getString("name")     );
 	        	}
 	        }
-		} catch (Exception e) {e.printStackTrace();} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("DEBUG: SQL Exception at Login: " + e.getMessage());
+			} 
 		return dto;
 	}
 
 	public boolean doRegist(String id,String pw, String name, String birthday,String  gender,double height,double weight,double targetWeight, double bmi) throws Exception {
 		boolean regist =false;  
-		String sql = "INSERT INTO USERS ( id, password, name, birthday, gender, height, weight, target_weight , bmi) "
+		String sql = "INSERT INTO \"USERS\" ( id, password, name, birthday, gender, height, weight, target_weight , bmi) "
 				   + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 			
 		try (Connection con = getConnection();
@@ -58,12 +58,22 @@ public class UserInfoDao {
 	            if (count > 0) {
 	                regist = true;
 	            }
-			} catch (Exception e) { e.printStackTrace(); } 
+			} catch (Exception e) { 
+				e.printStackTrace(); 
+				System.out.println("DEBUG: SQL Exception at Login: " + e.getMessage());
+				} 
 			return regist;
 		}
 		
-		private Connection getConnection() throws Exception {
-	        Class.forName(DRIVER_NAME);
-	        return DriverManager.getConnection(JDBC_URL, USER_ID, USER_PASS);
-	    }
+	private Connection getConnection() throws Exception {
+	    String url = System.getenv("DB_URL");
+	    String user = System.getenv("DB_USER");
+	    String pass = System.getenv("DB_PASS");
+
+	    System.out.println("DEBUG: Loaded URL: " + url);
+	    System.out.println("DEBUG: Loaded USER: " + user);
+
+	    Class.forName(DRIVER_NAME);
+	    return DriverManager.getConnection(url, user, pass);
+	}
 	}

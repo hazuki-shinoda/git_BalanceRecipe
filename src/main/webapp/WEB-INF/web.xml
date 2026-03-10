@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xmlns="https://jakarta.ee/xml/ns/jakartaee" 
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" 
          version="5.0">
- <servlet>
+<welcome-file-list>
+    <welcome-file>Login</welcome-file>
+</welcome-file-list>
+  <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>BalanceRecipe.Login</servlet-class>
   </servlet>
@@ -10,6 +14,7 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>ExecuteLogin</servlet-name>
     <servlet-class>BalanceRecipe.ExecuteLogin</servlet-class>
@@ -18,6 +23,7 @@
     <servlet-name>ExecuteLogin</servlet-name>
     <url-pattern>/ExecuteLogin</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>Home</servlet-name>
     <servlet-class>BalanceRecipe.Home</servlet-class>
@@ -26,6 +32,7 @@
     <servlet-name>Home</servlet-name>
     <url-pattern>/Home</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>ExecuteLogout</servlet-name>
     <servlet-class>BalanceRecipe.ExecuteLogout</servlet-class>
@@ -34,6 +41,7 @@
     <servlet-name>ExecuteLogout</servlet-name>
     <url-pattern>/ExecuteLogout</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>InputSurvey</servlet-name>
     <servlet-class>BalanceRecipe.InputSurvey</servlet-class>
@@ -42,6 +50,7 @@
     <servlet-name>InputSurvey</servlet-name>
     <url-pattern>/InputSurvey</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>SaveSurvey</servlet-name>
     <servlet-class>BalanceRecipe.SaveSurvey</servlet-class>
@@ -50,6 +59,7 @@
     <servlet-name>SaveSurvey</servlet-name>
     <url-pattern>/SaveSurvey</url-pattern>
   </servlet-mapping>
+
   <servlet>
     <servlet-name>ShowAllSurvey</servlet-name>
     <servlet-class>BalanceRecipe.ShowAllSurvey</servlet-class>
@@ -58,17 +68,17 @@
     <servlet-name>ShowAllSurvey</servlet-name>
     <url-pattern>/ShowAllSurvey</url-pattern>
   </servlet-mapping>
-<servlet>
+
+  <servlet>
     <servlet-name>RegisterSurvey</servlet-name>
     <servlet-class>BalanceRecipe.RegisterSurvey</servlet-class>
-</servlet>
-<servlet-mapping>
+  </servlet>
+  <servlet-mapping>
     <servlet-name>RegisterSurvey</servlet-name>
     <url-pattern>/RegisterSurvey</url-pattern>
-</servlet-mapping>
+  </servlet-mapping>
+
   <servlet>
-    <description></description>
-    <display-name>SaveMealSurvey</display-name>
     <servlet-name>SaveMealSurvey</servlet-name>
     <servlet-class>BalanceRecipe.SaveMealSurvey</servlet-class>
   </servlet>
@@ -76,15 +86,17 @@
     <servlet-name>SaveMealSurvey</servlet-name>
     <url-pattern>/SaveMealSurvey</url-pattern>
   </servlet-mapping>
- <filter>
+
+  <filter>
     <filter-name>SetEncodingFilter</filter-name>
-    <filter-class>filter.SetEncodingFilter</filter-class> </filter>
+    <filter-class>filter.SetEncodingFilter</filter-class>
+  </filter>
   <filter-mapping>
     <filter-name>SetEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
   <filter>
-    <display-name>LoginCheckFilter</display-name>
     <filter-name>LoginCheckFilter</filter-name>
     <filter-class>filter.LoginCheckFilter</filter-class>
   </filter>
@@ -92,4 +104,5 @@
     <filter-name>LoginCheckFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
 </web-app>

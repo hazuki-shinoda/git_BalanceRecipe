@@ -31,7 +31,7 @@ public class MealLogDao {
         
         String sql = "SELECT SUM(calorie) as cal, SUM(protein) as pro, " +
                      "SUM(fat) as fat, SUM(carbohydrate) as carb " +
-                     "FROM meal_logs WHERE user_id = ? AND meal_date = ?";
+                     "FROM meal_logs WHERE user_id = ? AND meal_date = ?::date";
 
         try (Connection con  = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class MealLogDao {
     public boolean saveMealLog(MealLogDto dto) {
         
             String sql = "INSERT INTO meal_logs (user_id, meal_date, meal_type, food_name, calorie, protein, fat, carbohydrate, weight) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?, ?)";
             
 
             try (Connection con = getConnection();
@@ -106,7 +106,7 @@ public class MealLogDao {
     }
     
     private Connection getConnection() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver"); 
+        Class.forName("org.postgresql.Driver"); 
         return DriverManager.getConnection(URL, USER, PASS);
     }
     

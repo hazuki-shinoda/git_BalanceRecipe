@@ -45,7 +45,9 @@ public class FoodDao {
                         list.add(dto);
                     }
                 }
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	}
         return list;
         }
     
@@ -69,12 +71,14 @@ public class FoodDao {
                         );
                     }
                 }
-        } catch (Exception e) { e.printStackTrace();}
+        } catch (Exception e) { 
+        	e.printStackTrace();
+        	}
         return dto; 
     }
     
     private Connection getConnection() throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection(URL, USER, PASS);
     }
 }
