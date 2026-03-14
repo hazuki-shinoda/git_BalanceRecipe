@@ -1,7 +1,7 @@
 BalanceRecipe
 
 ![言語](https://img.shields.io/badge/Language-Java-orange)
-![DB](https://img.shields.io/badge/Database-MySQL-blue)
+![DB](https://img.shields.io/badge/Database-PostgreSQL-blue)
 ![Status](https://img.shields.io/badge/Status-Developing-green)
 
 ## 概要
@@ -14,25 +14,25 @@ BalanceRecipe
 
 ## 使用技術
 - **言語**: Java (Servlet/JSP)
-- **データベース**: MySQL
+- **データベース**: PostgreSQL
 - **サーバー**: Apache Tomcat 10.1
 
 ## 環境構築・実行手順
 1. **データベースの準備**
-   MySQLで `balance_recipe_db` というデータベースを作成してください。
+   PostgreSQLで `balance_recipe_db` というデータベースを作成してください。
    ```sql
    CREATE DATABASE balance_recipe_db;
    ```
 
 ## 環境変数の設定
    アプリを動かすには、以下の環境変数を設定してください。
-   ※ `DB_PASS` には、ご自身のMySQLのパスワードを設定してください。
+   ※ `JDBC_DATABASE_PASSWORD` には、ご自身のPostgreSQLのパスワードを設定してください。
 
    | 名前 | 設定値 |
    | :--- | :--- |
-   | **DB_URL** | `jdbc:mysql://localhost/balance_recipe_db?characterEncoding=UTF-8&serverTimezone=Asia/Tokyo&useSSL=false` |
-   | **DB_USER** | `root` |
-   | **DB_PASS** | **各自のMySQLパスワード** |
+   | **JDBC_DATABASE_URL** | `jjdbc:postgresql://dpg-d6nbu5lactks738jtv20-a.oregon-postgres.render.com:5432/balance_recipe_db?sslmode=require` |
+   | **JDBC_DATABASE_USERNAME** | `balance_recipe_db_user` |
+   | **JDBC_DATABASE_PASSWORD** | **各自のMySQLパスワード** |
 
 ## ディレクトリ構成
 プロジェクトの構造は以下の通りです。
