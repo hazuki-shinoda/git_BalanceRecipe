@@ -30,7 +30,7 @@ BalanceRecipe
 
    | 名前 | 設定値 |
    | :--- | :--- |
-   | **JDBC_DATABASE_URL** | `jjdbc:postgresql://dpg-d6nbu5lactks738jtv20-a.oregon-postgres.render.com:5432/balance_recipe_db?sslmode=require` |
+   | **JDBC_DATABASE_URL** | `jdbc:postgresql://dpg-d6nbu5lactks738jtv20-a.oregon-postgres.render.com:5432/balance_recipe_db?sslmode=require` |
    | **JDBC_DATABASE_USERNAME** | `balance_recipe_db_user` |
    | **JDBC_DATABASE_PASSWORD** | **各自のMySQLパスワード** |
 
