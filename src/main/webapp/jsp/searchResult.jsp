@@ -46,6 +46,7 @@
 					        <input type="hidden" name="action" value="apply">
 					        <input type="hidden" name="selectedId" value="${food.id}">
 					        <input type="hidden" name="weight" value="${preWeight}">
+					       <input type="hidden" name="mealType" value="${not empty SELECTED_MEAL_TYPE ? SELECTED_MEAL_TYPE : param.mealType}">
 					        <input type="number" name="grams" value="100" min="1" step="1" class="grams-input"> g
 					        <button type="submit" class="btn-primary">決定</button>
 					    </form>

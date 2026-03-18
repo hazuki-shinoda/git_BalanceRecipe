@@ -41,9 +41,6 @@
         <li><a href="${pageContext.request.contextPath}/RegisterSurvey">新規登録</a></li>
     </ul>
 </nav>
-
-<p>テスト用アカウント： ID：guest / PW：password</p>
-
 <script type="text/javascript" src="js/login-check.js"></script>                                  		                                                                                       
 </body>
 </html>

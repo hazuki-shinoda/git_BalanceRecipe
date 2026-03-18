@@ -39,14 +39,14 @@
 	</p>
 日付：<input type="date" name="mealDate" value="<%= today %>" required>
     <p>
-            区分：<select name="mealType">
-                <option value="朝食">朝食</option>
-                <option value="昼食">昼食</option>
-                <option value="夕食">夕食</option>
-                <option value="間食">間食</option>
-            	</select>
-    </p>                                                           
-<p>
+    区分：<select name="mealType" id = "ID_MEALTYPE">
+        <option value="朝食" ${SELECTED_MEAL_TYPE == '朝食' ? 'selected' : ''}>朝食</option>
+        <option value="昼食" ${SELECTED_MEAL_TYPE == '昼食' ? 'selected' : ''}>昼食</option>
+        <option value="夕食" ${SELECTED_MEAL_TYPE == '夕食' ? 'selected' : ''}>夕食</option>
+        <option value="間食" ${SELECTED_MEAL_TYPE == '間食' ? 'selected' : ''}>間食</option>
+    </select>
+    </p>
+<p>    
   今日のメニュー：
   <input type="text" name="MEAL" id="ID_MEAL" value="${MEAL_NAME}"> 
   <button type="button" onclick="goToSearch()">検索して栄養計算</button>  

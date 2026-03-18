@@ -34,15 +34,19 @@ public class SaveMealSurvey extends HttpServlet {
         FoodDao dao = new FoodDao();
 
         if ("search".equals(action)) {
-            String keyword = request.getParameter("MEAL");
-            String currentWeight = request.getParameter("weight");
-            request.setAttribute("preWeight", currentWeight); 
+        	String s_mealType = request.getParameter("mealType");
+        	String mealName = request.getParameter("MEAL");
+        	String s_Weight = request.getParameter("weight");
+        	request.setAttribute("SELECTED_MEAL_TYPE", s_mealType); 
+        	request.setAttribute("MEAL_NAME", mealName); 
+        	request.setAttribute("preWeight", s_Weight); 
             
-            List<FoodDto> list = dao.searchByName(keyword);
+            List<FoodDto> list = dao.searchByName(mealName);
             request.setAttribute("foodList", list);
             request.getRequestDispatcher("jsp/searchResult.jsp").forward(request, response);
             
         } else if ("apply".equals(action)) {
+        	String a_mealType = request.getParameter("mealType");
             String id = request.getParameter("selectedId");
             String gramsStr = request.getParameter("grams");
             String weight = request.getParameter("weight");
@@ -63,8 +67,9 @@ public class SaveMealSurvey extends HttpServlet {
                 request.setAttribute("CARB",    (double) Math.round(food.getCarbs() * ratio * 10.0) / 10.0);
                 request.setAttribute("SAVED_WEIGHT", weight);
                 request.setAttribute("MEAL_NAME", food.getName());
+                 
             }
-            
+            request.setAttribute("SELECTED_MEAL_TYPE", a_mealType);
             UserInfoDto loginUser = (UserInfoDto) request.getSession().getAttribute("LOGIN_INFO");
             if (loginUser != null) {
                 request.setAttribute("USER_NAME_RAW", loginUser.getName());

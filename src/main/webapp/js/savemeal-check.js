@@ -8,6 +8,7 @@
 function goToSearch() {
 	let mealName = document.getElementById("ID_MEAL").value;
     let weight = document.getElementById("ID_WEIGHT").value; 
+    const mealType = document.getElementById('ID_MEALTYPE').value;
     const mealInput = document.getElementById("ID_MEAL");
     const keyword = mealInput.value.trim();
 
@@ -15,7 +16,7 @@ function goToSearch() {
         alert("検索するキーワード（今日のメニュー）を入力してください");
         return;
     }
-    location.href = "SaveMealSurvey?action=search&MEAL=" + encodeURIComponent(mealName) + "&weight=" + weight;
+    location.href = "SaveMealSurvey?action=search&MEAL=" + encodeURIComponent(mealName) + "&weight=" + weight + "&mealType=" + encodeURIComponent(mealType);
 }
 
 document.getElementById("ID_SUBMIT").addEventListener("click", function(event) {

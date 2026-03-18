@@ -31,6 +31,10 @@ public class InputSurvey extends HttpServlet {
 	        if (msg != null) {
 	            request.setAttribute("MSG", msg);
 	        }
+	        String mealType = request.getParameter("mealType");
+	        if (mealType != null) {
+	            request.setAttribute("SELECTED_MEAL_TYPE", mealType);
+	        }
 	        String error = request.getParameter("error");
 	        if (error != null) {
 	            String errorMsg = "エラーが発生しました。";
