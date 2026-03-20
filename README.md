@@ -18,6 +18,9 @@ BalanceRecipe
 - **サーバー**: Apache Tomcat 10.1
 
 ## 環境構築・実行手順
+- 自動インポート機能 :<br>food_dictionary は、サーバーを起動するとAppInitListenerクラスによって初期データが自動的にインポートされます。
+- 拡張性 :<br>今後のアップデート（ビタミン等の詳細分析等）を見越し、マスタには豊富な栄養素カラムを定義しています。
+
 1. **データベースの準備**
    PostgreSQLで `balance_recipe_db` というデータベースを作成してください。
    ```sql
@@ -26,13 +29,14 @@ BalanceRecipe
 
 2. **テーブルの作成**
 	PostgreSQLで以下のテーブルを作成してください。
-	ユーザー情報 (USERS) を親とし、そのIDをキーとして食事記録 (meal_logs) を紐付けて管理しています。
-	ユーザー情報テーブル (user_info)
+
+	ユーザー情報テーブル (USERS)<br>
+	ユーザーの基本プロフィール情報を管理します。
 	```sql
 	CREATE TABLE public."USERS" (
 		id varchar(50) NOT NULL,
-		"name" varchar(100) NOT NULL,
-		"password" varchar(255) NOT NULL,
+		name varchar(100) NOT NULL,
+		password varchar(255) NOT NULL,
 		birthday date NULL,
 		gender bpchar(1) DEFAULT NULL::bpchar NULL,
 		height float8 NULL,
@@ -43,11 +47,13 @@ BalanceRecipe
 		CONSTRAINT "USERS_pkey" PRIMARY KEY (id)
 	);
 	 ```
-	 食品テーブル (food_dictionary)
+	 食品テーブル (food_dictionary)<br>
+	文部科学省の「日本食品標準成分表」をベースとした食品データです。<br>
+	※ データはアプリケーション起動時に、WEB-INF/food_data.csvを初期データとして自動インポートします。
 	 ```sql
 	 CREATE TABLE public.food_dictionary (
 		id varchar(20) NOT NULL,
-		"name" varchar(255) DEFAULT NULL::character varying NULL,
+		name varchar(255) DEFAULT NULL::character varying NULL,
 		calories float8 NULL,
 		protein float8 NULL,
 		fat float8 NULL,
@@ -62,7 +68,8 @@ BalanceRecipe
 		CONSTRAINT food_dictionary_pkey PRIMARY KEY (id)
 	);
 	```
-	 食事記録テーブル (meal_log)
+	 食事記録テーブル (meal_logs)<br>
+	ユーザーごとの日々の食事内容を記録します。user_id を通じて USERS テーブルと紐付きます。
 	 ```sql
 	 CREATE TABLE public.meal_logs (
 		id serial4 NOT NULL,
@@ -81,9 +88,9 @@ BalanceRecipe
 	 ```
  
 ## 環境変数の設定
-   アプリを動かすには、以下の環境変数を設定してください。
-   ※ `JDBC_DATABASE_PASSWORD` には、ご自身のPostgreSQLのパスワードを設定してください。
-
+   アプリを動かすには、以下の環境変数を設定してください。<br>
+   ※ `JDBC_DATABASE_URL` 、`JDBC_DATABASE_PASSWORD` にはご自身のホスト名・PostgreSQLのパスワードを設定してください。
+ 
    | 名前 | 設定値 |
    | :--- | :--- |
    | **JDBC_DATABASE_URL** | `jdbc:postgresql://<ホスト名>:5432/balance_recipe_db?sslmode=require` |
@@ -96,16 +103,22 @@ BalanceRecipe
 ```text
 BalanceRecipe/
 ├── src/main/java/
-│   ├── BalanceRecipe/    # Javaソースコード
-│   └── filter/           # フィルタ設定
+│   ├── BalanceRecipe/
+│   │   ├── AppInitListener.java  # アプリ起動時の自動実行 (CSVインポート)
+│   │   ├── Dao/                  # データベース操作
+│   │   └── Dto/                  # データ保持クラス
+│   └── filter/                   # 文字エンコード・認証フィルタ
 ├── src/main/webapp/
-│   ├── css/              # スタイルシート
-│   ├── js/               # JavaScriptファイル
-│   ├── jsp/              # JSPファイル
-│   ├── META-INF/         
-│   └── WEB-INF/          
+│   ├── css/                      # スタイルシート
+│   ├── js/                       # JavaScriptファイル
+│   ├── jsp/                      # JSPファイル
+│   ├── META-INF/
+│   └── WEB-INF/
+│       ├── food_data.csv         # ★初期インポート用食品マスタデータ
+│       └── web.xml               # サーブレット設定
 └── README.md
 ```
+
 ## セキュリティへの取り組み
 - **XSS攻撃への対策**: ユーザー入力値および表示データにおいて、自作の `Util.replaceEscapeChar` メソッドを通すことで、HTMLインジェクションおよびXSSを防止しています。
 - **バリデーション**: 数値入力欄（カロリー、栄養素等）では適切な型変換とエラーハンドリングを行い、不正な入力によるシステムエラーを防止しています。
