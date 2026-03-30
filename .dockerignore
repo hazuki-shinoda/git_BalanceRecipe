@@ -1,0 +1,8 @@
+target/
+build/
+images/
+.git/
+.DS_Store
+
+Dockerfile
+.dockerignore
