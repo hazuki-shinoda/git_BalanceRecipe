@@ -13,6 +13,6 @@ public class AppInitListener implements ServletContextListener {
         if (dao.isDataEmpty()) {
             String path = sce.getServletContext().getRealPath("/WEB-INF/food_data.csv");
             dao.importFromCsv(path);
-    }
+        }
     }
 }

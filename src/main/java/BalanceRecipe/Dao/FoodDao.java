@@ -49,9 +49,13 @@ public class FoodDao {
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
-            br.readLine(); // ヘッダー
-            String line;
-
+        	String header = br.readLine();
+        	if (header == null || header.isEmpty()) { //一行目、ヘッダー
+            	System.err.println("CSVファイルが空です。CSVファイルの読み取りに失敗しました。ファイルパス: " + filePath);
+                return;
+            }
+            
+            String line; //2行目以降
             try (Connection conn = getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 conn.setAutoCommit(false);
