@@ -16,7 +16,8 @@ import jakarta.servlet.http.HttpSession;
 public class ExecuteLogout extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -25,7 +26,8 @@ public class ExecuteLogout extends HttpServlet {
         response.sendRedirect("Login?logout=success");
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }

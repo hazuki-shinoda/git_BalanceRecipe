@@ -5,9 +5,10 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
-@WebListener 
+@WebListener
 public class AppInitListener implements ServletContextListener {
-    public void contextInitialized(ServletContextEvent sce) {
+    @Override
+	public void contextInitialized(ServletContextEvent sce) {
     	System.out.println("--- AppInitListener: 起動 ---");
         FoodDao dao = new FoodDao();
         if (dao.isDataEmpty()) {

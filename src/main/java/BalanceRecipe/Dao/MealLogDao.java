@@ -1,8 +1,8 @@
-/* getTodaysTotal(String userId) メソッド ： 
+/* getTodaysTotal(String userId) メソッド ：
  * 	Homeサーブレットから呼び出される
  * 	その日に摂取した栄養素の合計を計算するSQLの実行
  * 		cal, fat, pro, carb をセットして合計をFoodDtoで返す
- * saveMealLog(Id, Date,,,) メソッド ： 
+ * saveMealLog(Id, Date,,,) メソッド ：
  *  SaveMealSurveyサーブレットdoPostから呼び出される
  *  DBへパラメータをinsertで保存するSQLの実行
  * */
@@ -28,7 +28,7 @@ public class MealLogDao {
     public FoodDto getTodaysTotal(String userId) throws Exception {
         String today = java.time.LocalDate.now().toString();
         FoodDto total = new FoodDto();
-        
+
         String sql = "SELECT SUM(calorie) as cal, SUM(protein) as pro, " +
                      "SUM(fat) as fat, SUM(carbohydrate) as carb " +
                      "FROM meal_logs WHERE user_id = ? AND meal_date = ?::date";
@@ -48,16 +48,16 @@ public class MealLogDao {
         } catch (Exception e) {e.printStackTrace();}
         return total;
     }
-    
+
     public boolean saveMealLog(MealLogDto dto) {
-        
+
             String sql = "INSERT INTO meal_logs (user_id, meal_date, meal_type, food_name, calorie, protein, fat, carbohydrate, weight) "
                 + "VALUES (?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?, ?)";
-            
+
 
             try (Connection con = getConnection();
                  PreparedStatement ps = con.prepareStatement(sql)) {
-            
+
             	ps.setString(1, dto.getUserId());
                 ps.setString(2, dto.getMealDate());
                 ps.setString(3, dto.getMealType());
@@ -67,13 +67,13 @@ public class MealLogDao {
                 ps.setDouble(7, dto.getFat());
                 ps.setDouble(8, dto.getCarbohydrate());
                 ps.setDouble(9, dto.getWeight());
-            
+
             return ps.executeUpdate() > 0;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-           
+
         }
 
     public List<MealLogDto> getAllLogs(String userId) throws Exception {
@@ -82,7 +82,7 @@ public class MealLogDao {
 
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-            
+
             ps.setString(1, userId);
             ResultSet rs = ps.executeQuery();
 
@@ -104,10 +104,10 @@ public class MealLogDao {
         }
         return list;
     }
-    
+
     private Connection getConnection() throws Exception {
-        Class.forName("org.postgresql.Driver"); 
+        Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection(URL, USER, PASS);
     }
-    
+
 }

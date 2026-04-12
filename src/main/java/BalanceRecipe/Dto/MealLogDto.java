@@ -2,7 +2,7 @@ package BalanceRecipe.Dto;
 
 public class MealLogDto {
     private int id;
-    private String userId;   
+    private String userId;
     private String mealDate;
     private String mealType;
     private String foodName;

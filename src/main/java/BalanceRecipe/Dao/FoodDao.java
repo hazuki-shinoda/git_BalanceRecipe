@@ -6,7 +6,7 @@
  * ◼searchByName(String keyword)：
  * SaveMealSurveyから呼び出される
  * 入力された食事をfood_dictionaryのなかでLIKE検索、List<FoodDto>で返す
- * ◼findById(String id)：		
+ * ◼findById(String id)：
  * SaveMealSurveyから呼び出される
  * food_dictionaryのなかで各パラメーターをFoodDtoに収納、FoodDtoで返す
  */
@@ -54,7 +54,7 @@ public class FoodDao {
             	System.err.println("CSVファイルが空です。CSVファイルの読み取りに失敗しました。ファイルパス: " + filePath);
                 return;
             }
-            
+
             String line; //2行目以降
             try (Connection conn = getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -62,7 +62,9 @@ public class FoodDao {
 
                 while ((line = br.readLine()) != null) {
                     String[] data = line.split(",", -1);
-                    if (data.length < 13) continue;
+                    if (data.length < 13) {
+						continue;
+					}
 
                     pstmt.setString(1, data[0]);
                     pstmt.setString(2, data[1]);

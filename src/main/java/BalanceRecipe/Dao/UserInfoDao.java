@@ -14,7 +14,7 @@ import BalanceRecipe.Dto.UserInfoDto;
 public class UserInfoDao {
 	private final String DRIVER_NAME = "org.postgresql.Driver";
 
-	
+
 	public UserInfoDto doSelect(String inputUserId, String inputPassWord) throws Exception {
 		UserInfoDto dto = new UserInfoDto();
 		String sql = "SELECT id, name FROM \"USERS\" WHERE id = ? AND password = ?";
@@ -31,38 +31,38 @@ public class UserInfoDao {
 	        }
 		} catch (Exception e) {
 			e.printStackTrace();
-			} 
+			}
 		return dto;
 	}
 
 	public boolean doRegist(String id,String pw, String name, String birthday,String  gender,double height,double weight,double targetWeight, double bmi) throws Exception {
-		boolean regist =false;  
+		boolean regist =false;
 		String sql = "INSERT INTO \"USERS\" ( id, password, name, birthday, gender, height, weight, target_weight , bmi) "
 				   + "VALUES ( ?, ?, ?, CAST(? AS DATE), ?, ?, ?, ?, ? )";
-			
+
 		try (Connection con = getConnection();
 			 PreparedStatement ps = con.prepareStatement(sql);){
-				ps.setString(1, id);            
-	            ps.setString(2, pw);            
-	            ps.setString(3, name);          
-	            ps.setString(4, birthday);      
-	            ps.setString(5, gender);        
-	            ps.setDouble(6, height);        
-	            ps.setDouble(7, weight);        
-	            ps.setDouble(8, targetWeight);  
+				ps.setString(1, id);
+	            ps.setString(2, pw);
+	            ps.setString(3, name);
+	            ps.setString(4, birthday);
+	            ps.setString(5, gender);
+	            ps.setDouble(6, height);
+	            ps.setDouble(7, weight);
+	            ps.setDouble(8, targetWeight);
 	            ps.setDouble(9, bmi);
-	            
-	            int count = ps.executeUpdate(); 
-	            
+
+	            int count = ps.executeUpdate();
+
 	            if (count > 0) {
 	                regist = true;
 	            }
-			} catch (Exception e) { 
-				e.printStackTrace(); 
-				} 
+			} catch (Exception e) {
+				e.printStackTrace();
+				}
 			return regist;
 		}
-		
+
 	private Connection getConnection() throws Exception {
 		final String URL    = System.getenv("JDBC_DATABASE_URL");
 		final String USER     = System.getenv("JDBC_DATABASE_USERNAME");

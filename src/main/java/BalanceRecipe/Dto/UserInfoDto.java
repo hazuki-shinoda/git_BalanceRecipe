@@ -11,7 +11,7 @@ public class UserInfoDto {
 	private double weight;
 	private double targetWeight;
 	private double bmi;
-	
+
 	public String getId() {return id;}
 	public void setId(String id) {this.id = id;}
 	public String getPw() {return pw;}

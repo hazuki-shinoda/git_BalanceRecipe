@@ -1,6 +1,6 @@
 /*MealLogDaoクラスから呼び出される
- * 
- * 
+ *
+ *
  * */
 
 package BalanceRecipe.Dto;
@@ -13,7 +13,7 @@ public class FoodDto implements Serializable {
     private float calories;
     private float protein;
     private float fat;
-    private float carbs; 
+    private float carbs;
     private float salt;
 
     public FoodDto() {}

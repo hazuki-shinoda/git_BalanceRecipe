@@ -20,13 +20,14 @@ import jakarta.servlet.http.HttpSession;
 
 public class ShowAllSurvey extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         UserInfoDto loginUser = (UserInfoDto) session.getAttribute("LOGIN_INFO");
- 
+
         request.setAttribute("USER_NAME_RAW", loginUser.getName());
         MealLogDao dao = new MealLogDao();
         List<MealLogDto> list = new ArrayList<>();
@@ -34,7 +35,7 @@ public class ShowAllSurvey extends HttpServlet {
             List<MealLogDto> result = dao.getAllLogs(loginUser.getId());
             if (result != null) {list = result;}
         } catch (Exception e) {e.printStackTrace();}
-        
+
         for (MealLogDto dto : list) {
             dto.setFoodName(Util.replaceEscapeChar(dto.getFoodName()));
             dto.setMealType(Util.replaceEscapeChar(dto.getMealType()));
@@ -44,7 +45,8 @@ public class ShowAllSurvey extends HttpServlet {
         request.getRequestDispatcher("jsp/showall.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }

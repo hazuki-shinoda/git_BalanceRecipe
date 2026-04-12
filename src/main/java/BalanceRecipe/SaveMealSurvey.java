@@ -27,9 +27,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SaveMealSurvey extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String action = request.getParameter("action");
         FoodDao dao = new FoodDao();
 
@@ -37,20 +38,20 @@ public class SaveMealSurvey extends HttpServlet {
         	String s_mealType = request.getParameter("mealType");
         	String mealName = request.getParameter("MEAL");
         	String s_Weight = request.getParameter("weight");
-        	request.setAttribute("SELECTED_MEAL_TYPE", s_mealType); 
-        	request.setAttribute("MEAL_NAME", mealName); 
-        	request.setAttribute("preWeight", s_Weight); 
-            
+        	request.setAttribute("SELECTED_MEAL_TYPE", s_mealType);
+        	request.setAttribute("MEAL_NAME", mealName);
+        	request.setAttribute("preWeight", s_Weight);
+
             List<FoodDto> list = dao.searchByName(mealName);
             request.setAttribute("foodList", list);
             request.getRequestDispatcher("jsp/searchResult.jsp").forward(request, response);
-            
+
         } else if ("apply".equals(action)) {
         	String a_mealType = request.getParameter("mealType");
             String id = request.getParameter("selectedId");
             String gramsStr = request.getParameter("grams");
             String weight = request.getParameter("weight");
-           
+
             double grams = 100.0;
             if (gramsStr != null && !gramsStr.isEmpty()) {
                 grams = Double.parseDouble(gramsStr);
@@ -61,13 +62,13 @@ public class SaveMealSurvey extends HttpServlet {
             if (food != null) {
                 double ratio = grams / 100.0;
 
-                request.setAttribute("CALORIE", (double) Math.round(food.getCalories() * ratio * 10.0) / 10.0);
-                request.setAttribute("PROTEIN", (double) Math.round(food.getProtein() * ratio * 10.0) / 10.0);
-                request.setAttribute("FAT",     (double) Math.round(food.getFat() * ratio * 10.0) / 10.0);
-                request.setAttribute("CARB",    (double) Math.round(food.getCarbs() * ratio * 10.0) / 10.0);
+                request.setAttribute("CALORIE", Math.round(food.getCalories() * ratio * 10.0) / 10.0);
+                request.setAttribute("PROTEIN", Math.round(food.getProtein() * ratio * 10.0) / 10.0);
+                request.setAttribute("FAT",     Math.round(food.getFat() * ratio * 10.0) / 10.0);
+                request.setAttribute("CARB",    Math.round(food.getCarbs() * ratio * 10.0) / 10.0);
                 request.setAttribute("SAVED_WEIGHT", weight);
                 request.setAttribute("MEAL_NAME", food.getName());
-                 
+
             }
             request.setAttribute("SELECTED_MEAL_TYPE", a_mealType);
             UserInfoDto loginUser = (UserInfoDto) request.getSession().getAttribute("LOGIN_INFO");
@@ -79,9 +80,10 @@ public class SaveMealSurvey extends HttpServlet {
         }
     }
 
-        protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+        @Override
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
-            
+
             UserInfoDto loginUser = (UserInfoDto) request.getSession().getAttribute("LOGIN_INFO");
             try {
             	MealLogDto dto = new MealLogDto();
@@ -89,7 +91,7 @@ public class SaveMealSurvey extends HttpServlet {
                 dto.setMealDate(request.getParameter("mealDate"));
                 dto.setMealType(request.getParameter("mealType"));
                 dto.setFoodName(request.getParameter("MEAL"));
-                
+
                 dto.setCalorie(Double.parseDouble(request.getParameter("calorie")));
                 dto.setProtein(Double.parseDouble(request.getParameter("protein")));
                 dto.setFat(Double.parseDouble(request.getParameter("fat")));
@@ -98,7 +100,7 @@ public class SaveMealSurvey extends HttpServlet {
 
                 MealLogDao dao = new MealLogDao();
                 boolean success = dao.saveMealLog(dto);
-                
+
                 if (success) {
                     response.sendRedirect("Home?msg=success");
                 } else {

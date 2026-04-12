@@ -20,13 +20,15 @@ import jakarta.servlet.http.HttpSession;
 public class ExecuteLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
+	@Override
 	protected void doPost (HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {       
+			throws ServletException, IOException {
 		HttpSession session           = request.getSession();
 		UserInfoDto userInfoOnSession = (UserInfoDto)session.getAttribute("LOGIN_INFO");
 
@@ -34,15 +36,15 @@ public class ExecuteLogin extends HttpServlet {
 			response.sendRedirect("Home");
 			return;
 		} else {
-			String userId   = request.getParameter("ID");     
-			String passWord = request.getParameter("PW");   
+			String userId   = request.getParameter("ID");
+			String passWord = request.getParameter("PW");
 			if (userId == null || passWord == null || userId.isEmpty() || passWord.isEmpty()) {
 	            response.sendRedirect("Login");
 	            return;
 	        }
 			UserInfoDao logic = new UserInfoDao();
 			UserInfoDto dto = null;
-			
+
 			try {
 				dto = logic.doSelect(userId, passWord);
 				if (dto.getId() != null) {

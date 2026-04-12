@@ -18,10 +18,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/*") 
+@WebFilter("/*")
 public class LoginCheckFilter implements Filter {
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    @Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -29,15 +30,15 @@ public class LoginCheckFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
         String uri = httpRequest.getRequestURI();
 
-        boolean isAllowPage = uri.endsWith("Login") || 
-                              uri.endsWith("ExecuteLogin") || 
-                              uri.endsWith("RegisterSurvey") || 
-                              uri.contains("/jsp/register.jsp") || 
-                              uri.contains("/css/") || 
+        boolean isAllowPage = uri.endsWith("Login") ||
+                              uri.endsWith("ExecuteLogin") ||
+                              uri.endsWith("RegisterSurvey") ||
+                              uri.contains("/jsp/register.jsp") ||
+                              uri.contains("/css/") ||
                               uri.contains("/js/");
 
         boolean isLoggedIn = (session != null && session.getAttribute("LOGIN_INFO") != null);
-        
+
         if (isLoggedIn || isAllowPage) {
             chain.doFilter(request, response);
         } else {
