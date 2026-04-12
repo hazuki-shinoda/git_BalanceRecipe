@@ -22,7 +22,7 @@ BalanceRecipe
 - 拡張性 :<br>今後のアップデート（ビタミン等の詳細分析等）を見越し、マスタには豊富な栄養素カラムを定義しています。
 
 1. **データベースの準備**
-   PostgreSQLで `balance_recipe_db` というデータベースを作成してください。
+   PostgreSQLで `balance_recipe_db_terw` というデータベースを作成してください。
    ```sql
    CREATE DATABASE balance_recipe_db;
    ```
@@ -93,7 +93,7 @@ BalanceRecipe
  
    | 名前 | 設定値 |
    | :--- | :--- |
-   | **JDBC_DATABASE_URL** | `jdbc:postgresql://<ホスト名>:5432/balance_recipe_db?sslmode=require` |
+   | **JDBC_DATABASE_URL** | `jdbc:postgresql://<ホスト名>:5432/balance_recipe_db_terw?sslmode=require` |
    | **JDBC_DATABASE_USERNAME** | `balance_recipe_db_user` |
    | **JDBC_DATABASE_PASSWORD** | **各自のPostgreSQLパスワード** |
 
