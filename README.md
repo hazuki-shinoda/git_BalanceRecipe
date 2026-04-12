@@ -24,7 +24,7 @@ BalanceRecipe
 1. **データベースの準備**
    PostgreSQLで `balance_recipe_db_terw` というデータベースを作成してください。
    ```sql
-   CREATE DATABASE balance_recipe_db;
+   CREATE DATABASE balance_recipe_db_terw;
    ```
 
 2. **テーブルの作成**
